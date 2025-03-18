@@ -39,7 +39,6 @@ public class NextScene : MonoBehaviour
         LevelComplete = false; 
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         transitionAnim.SetTrigger("LevelStart");
-        PlayerMovement.Temperature = 0;
         TimeFixed = false;
         if(SceneManager.GetActiveScene().buildIndex == 0) {
         AudioChange = 0.003f;
@@ -57,7 +56,6 @@ public class NextScene : MonoBehaviour
         Died = false;
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         transitionAnim.SetTrigger("LevelStart");
-        PlayerMovement.Temperature = 0;
         TimeFixed = false;}
     }
     

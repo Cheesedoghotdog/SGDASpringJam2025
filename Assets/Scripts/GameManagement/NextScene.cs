@@ -75,7 +75,7 @@ public class NextScene : MonoBehaviour
         gameObject.SetActive(true);
         if (Audio.volume < 0.31f) {
         Audio.volume = Audio.volume += AudioChange;
-        if (time == 120) {
+        if (time == 120 && TimeFixed) {
             Next();
         }
         }

@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 public class NextScene : MonoBehaviour
 {
     public NextScene instance;
-    public static bool LevelComplete = false;
-    public static bool Died = false;
     [SerializeField] private Animator transitionAnim;
     public static int time;
     private bool TimeFixed = false;
@@ -32,31 +30,21 @@ public class NextScene : MonoBehaviour
 
 
     public void Next() {
-        if (time == 0) {
-        transitionAnim.SetTrigger("LevelOver");
-        }
         if (time == 120) {
-        LevelComplete = false; 
+        Debug.Log("AAAA");
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         transitionAnim.SetTrigger("LevelStart");
         TimeFixed = false;
         if(SceneManager.GetActiveScene().buildIndex == 0) {
         AudioChange = 0.003f;
         Audio.clip = Music;
-        Audio.Play();}}
-    }
-
-    public void Death() {
-        if (time == 0) {
-        Debug.Log(Audio.clip);
-        Debug.Log(Audio.volume);
-        transitionAnim.SetTrigger("LevelOver");
+        Audio.Play();
         }
-        if (time == 120) {
-        Died = false;
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-        transitionAnim.SetTrigger("LevelStart");
-        TimeFixed = false;}
+        } else {
+        FixTime();
+        transitionAnim.SetTrigger("LevelOver");
+        Debug.Log("BBBBB");
+        }
     }
     
     private void FixTime() {
@@ -64,14 +52,11 @@ public class NextScene : MonoBehaviour
         TimeFixed = true;
         if (SceneManager.GetActiveScene().buildIndex == 0) {
         AudioChange = -0.003f;}
-    }
+    } //This sets time back to 0 so it can start counting again.
 
 
     public void Quit() {
         Application.Quit();
-    }
-    public void Complete() {
-        LevelComplete = true;
     }
 
 
@@ -87,21 +72,12 @@ public class NextScene : MonoBehaviour
     }
     private void FixedUpdate() {
         time++;
-        if(LevelComplete) {
-            if (!TimeFixed) {
-                FixTime();
-            }
-            Next();
-        }
-        if(Died) {
-            if (!TimeFixed) {
-                FixTime();
-            }
-            Death();
-        }
         gameObject.SetActive(true);
         if (Audio.volume < 0.31f) {
         Audio.volume = Audio.volume += AudioChange;
+        if (time == 120) {
+            Next();
+        }
         }
     }
 

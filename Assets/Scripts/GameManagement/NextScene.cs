@@ -50,25 +50,15 @@ public class NextScene : MonoBehaviour
     private void FixTime() {
         time = 0;
         TimeFixed = true;
+        Debug.Log("CCCCCCCC");
         if (SceneManager.GetActiveScene().buildIndex == 0) {
         AudioChange = -0.003f;}
     } //This sets time back to 0 so it can start counting again.
 
 
     public void Quit() {
+        Debug.Log("AAAAA PAIN");
         Application.Quit();
-    }
-
-
-
-    public void MainMenu() {
-        StartCoroutine(LoadMenu());
-    }
-    IEnumerator LoadMenu() {
-        transitionAnim.SetTrigger("LevelOver");
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadSceneAsync(0);
-        transitionAnim.SetTrigger("LevelStart");
     }
     private void FixedUpdate() {
         time++;
@@ -78,6 +68,7 @@ public class NextScene : MonoBehaviour
         if (time == 120 && TimeFixed) {
             Next();
         }
+        
         }
     }
 
